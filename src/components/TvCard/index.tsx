@@ -14,7 +14,7 @@ interface TvCardProps {
   onDetails?: (id: number) => void;
 }
 
-function TvCard({ show, onDetails }: TvCardProps) {
+export default function TvCard({ show, onDetails }: TvCardProps) {
   const { isFavorited, toggleFavorite } = useFavorites();
   const poster = show.poster_path ? `https://image.tmdb.org/t/p/w500${show.poster_path}` :
     "https://via.placeholder.com/500x750?text=Sem+Imagem";
@@ -23,36 +23,25 @@ function TvCard({ show, onDetails }: TvCardProps) {
 
   return (
     <div className="min-w-[160px] sm:min-w-[180px] md:min-w-[200px] lg:min-w-[220px] xl:min-w-[240px] snap-start">
-      <div
-        className="relative group rounded-xl overflow-hidden bg-neutral-800"
-      >
+      <div className="relative group rounded-xl overflow-hidden bg-neutral-800">
         <div className="relative aspect-[2/3]">
-          <img
-            src={poster}
-            alt={show.name}
-            className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
-          />
+          <img src={poster} alt={show.name} className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105" />
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <div className="pointer-events-none absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
               className="pointer-events-auto w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md flex items-center justify-center gap-2 text-sm font-medium shadow-lg"
-              onClick={(e) => {
-                e.stopPropagation();
-                onDetails?.(show.id);
-              }}
+              onClick={(e) => { e.stopPropagation(); onDetails?.(show.id); }}
             >
+              {/* ícone play */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                  clipRule="evenodd"
-                />
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
               </svg>
               Ver detalhes
             </button>
           </div>
         </div>
       </div>
+
       <div className="px-1 pt-3">
         <h3 className="text-neutral-400 text-sm font-medium truncate">{show.name}</h3>
         <div className="flex items-center justify-between mt-2">
@@ -62,22 +51,16 @@ function TvCard({ show, onDetails }: TvCardProps) {
             </svg>
             <span className="text-neutral-400 text-xs">{show.vote_average?.toFixed(1)}</span>
           </div>
+
           <span className="text-neutral-400 text-xs">{(show.first_air_date || "").slice(0, 4)}</span>
+
           <button
             className="p-1 rounded-full text-white transition-all"
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleFavorite(show.id, "tv");
-            }}
+            onClick={(e) => { e.stopPropagation(); toggleFavorite(show.id, "tv"); }}
             aria-label="Favoritar"
             title={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className={`h-4 w-4 ${isFav ? "text-red-500 fill-current" : "text-purple-600"}`}
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" className={`h-4 w-4 ${isFav ? "text-red-500 fill-current" : "text-purple-600"}`} viewBox="0 0 24 24" stroke="currentColor">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 6 4 4 6.5 4c1.74 0 3.41 1.01 4.22 2.61h.56C13.09 5.01 14.76 4 16.5 4 19 4 21 6 21 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
             </svg>
           </button>
@@ -86,5 +69,3 @@ function TvCard({ show, onDetails }: TvCardProps) {
     </div>
   );
 }
-
-export default TvCard;
