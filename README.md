@@ -1,69 +1,31 @@
-# React + TypeScript + Vite
+## 🍿 App de Filmes & Séries
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao repositório! Esta é uma aplicação web feita com React para explorar, pesquisar e salvar seus filmes e séries favoritos. Ela usa a API do The Movie Database (TMDb) para buscar e exibir dados de forma intuitiva
 
-Currently, two official plugins are available:
+## 🚀 Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Página Inicial: Exibe uma seleção dos filmes e séries mais populares e bem avaliados para descoberta rápida.
 
-## Expanding the ESLint configuration
+    Busca: Uma barra de pesquisa robusta permite encontrar filmes ou séries específicos pelo título.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    Página de Detalhes: Ao clicar em um título, o usuário é levado a uma página dedicada com informações detalhadas, como sinopse, elenco, notas e trailers.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    Favoritos: Os usuários podem adicionar ou remover filmes e séries de uma lista de favoritos, que persiste mesmo após a página ser fechada.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+    Navegação: Roteamento claro para todas as páginas principais, garantindo uma experiência de navegação fluida.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Layout Responsivo: O design da aplicação se adapta a diferentes tamanhos de tela (desktop, tablet e mobile).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🛠️ Tecnologias Utilizadas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    React: Biblioteca JavaScript para construir a interface do usuário.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    React Router DOM: Gerencia a navegação entre as páginas.
+
+    Tailwind CSS: Um framework CSS para estilização rápida e responsiva.
+
+    Hooks (useState, useEffect, useNavigate): Para gerenciar o estado e o ciclo de vida dos componentes.
+
+    APIs:
+
+        The Movie Database (TMDb) API: Para buscar dados de filmes e séries
