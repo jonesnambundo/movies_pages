@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-// Config TMDB
 const API_KEY = "f975b4f5e10040b0ed800db3826ac8bc";
 const TMDB_BASE = "https://api.themoviedb.org/3";
 
@@ -10,7 +10,6 @@ const URLS = {
   TOP_RATED: `${TMDB_BASE}/movie/top_rated?api_key=${API_KEY}&language=pt-BR`,
 };
 
-// Tipagem (ajuste se precisar de mais campos)
 interface Movie {
   id: number;
   title: string;
@@ -24,6 +23,14 @@ interface MovieCardProps {
   onDetails?: (id: number) => void;
 }
 
+type MovieRowProps = {
+  title: string;
+  subtitle?: string;
+  fetchUrl: string;
+  id?: string;
+  limit?: number;
+};
+
 function MovieCard({ movie, onDetails }: MovieCardProps) {
   const poster = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
@@ -31,15 +38,16 @@ function MovieCard({ movie, onDetails }: MovieCardProps) {
 
   return (
     <div className="min-w-[160px] sm:min-w-[180px] md:min-w-[200px] lg:min-w-[220px] xl:min-w-[240px] snap-start">
-      <div className="relative group cursor-pointer rounded-xl overflow-hidden bg-neutral-800">
+      <div
+        className="relative group cursor-pointer rounded-xl overflow-hidden bg-neutral-800"
+        onClick={() => onDetails?.(movie.id)}
+      >
         <div className="relative aspect-[2/3]">
           <img
             src={poster}
             alt={movie.title}
             className="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
           />
-
-          {/* Favorito (somente ícone por enquanto) */}
           <button
             className="absolute top-2 right-2 bg-black/60 hover:bg-black/80 p-2 rounded-full text-red-500 transition-all"
             onClick={(e) => e.stopPropagation()}
@@ -55,10 +63,8 @@ function MovieCard({ movie, onDetails }: MovieCardProps) {
             </svg>
           </button>
 
-          {/* Overlay */}
           <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-          {/* Botão Detalhes */}
           <div className="pointer-events-none absolute inset-0 flex items-end p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button
               className="pointer-events-auto w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-md flex items-center justify-center gap-2 text-sm font-medium shadow-lg"
@@ -67,7 +73,6 @@ function MovieCard({ movie, onDetails }: MovieCardProps) {
                 onDetails?.(movie.id);
               }}
             >
-              {/* Play icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fillRule="evenodd"
@@ -81,12 +86,10 @@ function MovieCard({ movie, onDetails }: MovieCardProps) {
         </div>
       </div>
 
-      {/* Info */}
       <div className="px-1 pt-3">
         <h3 className="text-amber-500 text-sm font-medium truncate">{movie.title}</h3>
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-1">
-            {/* Star */}
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5 text-yellow-500" viewBox="0 0 20 20" fill="currentColor">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.463c.969 0 1.371 1.241.588 1.81l-2.803 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.834-2.034a1 1 0 00-1.175 0L6.12 16.282c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.484 8.72c-.783-.57-.38-1.81.588-1.81H6.535a1 1 0 00.95-.69l1.07-3.292z" />
             </svg>
@@ -99,17 +102,10 @@ function MovieCard({ movie, onDetails }: MovieCardProps) {
   );
 }
 
-type MovieRowProps = {
-  title: string;
-  subtitle?: string;
-  fetchUrl: string;
-  id?: string;          // id do <section> para âncoras (ex.: #popular)
-  limit?: number;       // quantos cards exibir
-};
-
 function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) {
   const [movies, setMovies] = useState<Movie[]>([]);
   const trackRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let alive = true;
@@ -120,9 +116,7 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
         setMovies((data?.results || []).slice(0, limit));
       })
       .catch(console.error);
-    return () => {
-      alive = false;
-    };
+    return () => { alive = false; };
   }, [fetchUrl, limit]);
 
   const scrollBy = (offset: number) => {
@@ -130,26 +124,24 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
   };
 
   const handleDetails = (id: number) => {
-    console.log("ver detalhes -> id:", id);
+    navigate(`/detalhes/${id}?type=movie`); // 👈 mesma rota, indica "movie"
+    // ou: navigate(`/detalhes/${id}`, { state: { mediaType: "movie" } });
   };
 
   return (
     <section className="py-12" id={id}>
-      {/* Ocultar scrollbar apenas aqui */}
       <style>{`
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
       `}</style>
 
       <div className="container mx-auto px-4">
-        {/* Header da seção */}
         <div className="flex items-baseline justify-between mb-8">
           <div>
             <h2 className="text-2xl md:text-3xl font-bold text-amber-200">{title}</h2>
             {subtitle && <p className="text-neutral-400 text-sm mt-1">{subtitle}</p>}
           </div>
 
-          {/* Botões de scroll */}
           <div className="flex space-x-2">
             <button
               className="p-2 rounded-full bg-neutral-800/70 hover:bg-neutral-700 text-white transition-all"
@@ -172,7 +164,6 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
           </div>
         </div>
 
-        {/* Slider */}
         <div className="relative">
           <div ref={trackRef} className="no-scrollbar flex space-x-4 overflow-x-auto pb-2 snap-x snap-mandatory">
             {movies.map((m) => (
@@ -185,7 +176,6 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
   );
 }
 
-// Página com as três seções
 export default function MoviesHome() {
   return (
     <>
@@ -195,14 +185,12 @@ export default function MoviesHome() {
         subtitle="Fique por dentro do que todo mundo está assistindo"
         fetchUrl={URLS.TRENDING}
       />
-
       <MovieRow
         id="popular"
         title="Popular"
         subtitle="Os filmes mais populares do momento"
         fetchUrl={URLS.POPULAR}
       />
-
       <MovieRow
         id="top-rate"
         title="Top Rated"

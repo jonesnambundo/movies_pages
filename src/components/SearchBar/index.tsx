@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import bannerImg from "../../assets/images/banner-homem-aranha.png";
+import { useNavigate } from "react-router-dom";
+import bannerImg from "../../assets/images/banner-homem-aranha.png"
+import { URLS } from "../../api/tmdbApi";
 
-const API_KEY = "f975b4f5e10040b0ed800db3826ac8bc";
-const TRENDING_URL = `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&language=pt-BR`;
+const TRENDING_URL = URLS.TRENDING_MOVIE;
 
 export default function SearchBar() {
   const [bgUrl, setBgUrl] = useState<string | null>(null);
+  const [query, setQuery] = useState<string>("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     let canceled = false;
@@ -29,6 +32,13 @@ export default function SearchBar() {
     };
   }, []);
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/search?query=${encodeURIComponent(query.trim())}`);
+    }
+  };
+
   return (
     <div
       className="relative flex flex-col items-center justify-center w-full h-screen bg-neutral-900 bg-cover bg-center transition-all duration-300"
@@ -43,13 +53,16 @@ export default function SearchBar() {
           Lista de Filmes e Séries baseada na API The Movie DB. <br /> Confira
           as produções mais populares do mundo.
         </p>
-        <div className="relative w-full max-w-md">
+        <form onSubmit={handleSearch} className="relative w-full max-w-md">
           <input
             type="text"
             placeholder="Buscar filmes ou séries..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
             className="bg-neutral-800/80 text-white px-4 py-3 pr-12 rounded-full text-lg w-full focus:w-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
           />
           <button
+            type="submit"
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-purple-600 hover:bg-purple-700 p-2 rounded-full transition duration-300"
             aria-label="Buscar"
           >
@@ -68,7 +81,7 @@ export default function SearchBar() {
               />
             </svg>
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -32,7 +32,6 @@ function Footer() {
               </a>
             </div>
           </div>
-
           <div>
             <h3 className="text-white font-semibold text-lg mb-4">
               Quick Links
@@ -71,7 +70,6 @@ function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="text-white font-semibold text-lg mb-4">Resources</h3>
             <ul className="space-y-2 text-sm">
@@ -92,7 +90,6 @@ function Footer() {
               </li>
             </ul>
           </div>
-
           <div>
             <h3 className="text-white font-semibold text-lg mb-4">
               Newsletter
@@ -114,7 +111,6 @@ function Footer() {
             </form>
           </div>
         </div>
-
         <div className="border-t border-neutral-800 mt-10 pt-6 flex flex-col md:flex-row justify-between">
           <p className="text-xs">
             &copy; CineMix. All rights reserved.
@@ -128,7 +124,6 @@ function Footer() {
               TMDB API
             </a>
           </p>
-
           <div className="flex space-x-4 mt-4 md:mt-0 text-xs">
             <a href="#" className="hover:text-purple-400 transition-all">
               Privacy Policy
