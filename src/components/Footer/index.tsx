@@ -1,4 +1,3 @@
-import React from "react";
 
 function Footer() {
   return (
@@ -12,9 +11,9 @@ function Footer() {
               </span>
             </a>
             <p className="mb-4 text-sm">
-              Discover and explore the latest movies from around the world.
-              CineMix gives you access to a vast collection of films across all
-              genres.
+              Descubra e explore os filmes mais recentes do mundo todo. 
+              O MoviArt dá acesso a uma vasta coleção de filmes de 
+              todos os gêneros.
             </p>
             <div className="flex space-x-4">
               <a
@@ -75,7 +74,7 @@ function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="hover:text-purple-400 transition-all">
-                  About
+                  Sobre
                 </a>
               </li>
               <li>
@@ -85,7 +84,7 @@ function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-purple-400 transition-all">
-                  Help Center
+                  Ajuda
                 </a>
               </li>
             </ul>
@@ -95,7 +94,7 @@ function Footer() {
               Newsletter
             </h3>
             <p className="text-sm mb-4">
-              Stay up to date with the latest movies and news
+              Fique por dentro dos últimos filmes e notícias
             </p>
             <form className="space-y-3">
               <div className="relative">
@@ -106,14 +105,14 @@ function Footer() {
                 />
               </div>
               <button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg transition-all text-sm">
-                Subscribe
+                Inscreva -se 
               </button>
             </form>
           </div>
         </div>
         <div className="border-t border-neutral-800 mt-10 pt-6 flex flex-col md:flex-row justify-between">
           <p className="text-xs">
-            &copy; CineMix. All rights reserved.
+            &copy; MoviArt. All rights reserved.
             <br className="md:hidden" />
             <span className="hidden md:inline"> · </span>
             Powered by{" "}
