@@ -1,4 +1,3 @@
-import React from "react";
 import { useFavorites } from "../../hooks/useFavorites";
 
 interface TvShow {

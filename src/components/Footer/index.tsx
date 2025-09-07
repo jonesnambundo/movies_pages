@@ -70,7 +70,7 @@ function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">Resources</h3>
+            <h3 className="text-white font-semibold text-lg mb-4">Recursos</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="#" className="hover:text-purple-400 transition-all">
@@ -125,13 +125,13 @@ function Footer() {
           </p>
           <div className="flex space-x-4 mt-4 md:mt-0 text-xs">
             <a href="#" className="hover:text-purple-400 transition-all">
-              Privacy Policy
+              Política de Privacidade
             </a>
             <a href="#" className="hover:text-purple-400 transition-all">
-              Terms of Services
+              Termos de Serviço
             </a>
             <a href="#" className="hover:text-purple-400 transition-all">
-              Cookie Policy
+              Política de Cookies
             </a>
           </div>
         </div>
