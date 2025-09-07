@@ -124,7 +124,7 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
   };
 
   const handleDetails = (id: number) => {
-    navigate(`/detalhes/${id}?type=movie`); // 👈 mesma rota, indica "movie"
+    navigate(`/detalhes/${id}?type=movie`); 
     // ou: navigate(`/detalhes/${id}`, { state: { mediaType: "movie" } });
   };
 

@@ -1,8 +1,8 @@
+// src/pages/Search.tsx
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { URLS } from "../../api/tmdbApi";
 import MovieCard from "../../components/MovieCard";
-
 
 interface SearchResult {
   id: number;
@@ -12,7 +12,7 @@ interface SearchResult {
   vote_average: number;
   release_date?: string;
   first_air_date?: string;
-  media_type: "movie" | "tv";
+  media_type: "movie" | "tv" | "person";
 }
 
 export default function Search() {
@@ -28,13 +28,16 @@ export default function Search() {
       return;
     }
     setLoading(true);
+
     const fetchResults = async () => {
       try {
         const response = await fetch(`${URLS.SEARCH}&query=${encodeURIComponent(query)}`);
         const data = await response.json();
-        const filteredResults = data.results.filter(
-          (item: SearchResult) => item.media_type !== "person" && item.poster_path
+
+        const filteredResults: SearchResult[] = (data?.results || []).filter(
+          (item: SearchResult) => item.media_type !== "person" && !!item.poster_path
         );
+
         setResults(filteredResults);
       } catch (error) {
         console.error("Failed to fetch search results:", error);
@@ -43,6 +46,7 @@ export default function Search() {
         setLoading(false);
       }
     };
+
     fetchResults();
   }, [query]);
 
@@ -53,7 +57,9 @@ export default function Search() {
   return (
     <div className="pt-28 pb-12 container mx-auto px-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-amber-200">Resultados da busca por: "{query}"</h1>
+        <h1 className="text-3xl font-bold text-amber-200">
+          Resultados da busca por: "{query}"
+        </h1>
         <button
           onClick={() => navigate(-1)}
           className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition-colors text-sm"
@@ -78,8 +84,10 @@ export default function Search() {
                   vote_average: item.vote_average,
                   release_date: item.release_date || item.first_air_date || "",
                 }}
-                onDetails={() => handleDetails(item.id, item.media_type)}
-                mediaType={item.media_type}
+                onDetails={() =>
+                  handleDetails(item.id, item.media_type as "movie" | "tv")
+                }
+                mediaType={item.media_type as "movie" | "tv"}
               />
             </div>
           ))}

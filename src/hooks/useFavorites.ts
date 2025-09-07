@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 interface Favorite {
   id: number;
-  media_type: "movie" | "tv";
+  media_type: "movie" | "tv" ;
 }
 
 const FAVORITES_KEY = "tmdb_favorites";
