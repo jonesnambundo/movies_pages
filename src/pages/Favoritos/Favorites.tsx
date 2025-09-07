@@ -16,7 +16,13 @@ interface FavoriteItem {
   first_air_date?: string;
 }
 
-function FavoriteCard({ item, onDetails }: { item: FavoriteItem; onDetails: () => void }) {
+function FavoriteCard({
+  item,
+  onDetails,
+}: {
+  item: FavoriteItem;
+  onDetails: () => void;
+}) {
   const title = item.title || item.name || "Título desconhecido";
   const date = item.release_date || item.first_air_date || "";
   const year = date.slice(0, 4);
@@ -64,7 +70,9 @@ function FavoriteCard({ item, onDetails }: { item: FavoriteItem; onDetails: () =
       </div>
 
       <div className="px-1 pt-3">
-        <h3 className="text-neutral-200 text-sm font-medium truncate">{title}</h3>
+        <h3 className="text-neutral-200 text-sm font-medium truncate">
+          {title}
+        </h3>
         <div className="flex items-center justify-between mt-2">
           <div className="flex items-center gap-1">
             <svg
@@ -93,16 +101,30 @@ export default function Favoritos() {
   useEffect(() => {
     const fetchAllDetails = async () => {
       setLoading(true);
+
       const detailsPromises = favorites.map(async (fav) => {
-        if (fav.media_type === "movie") {
-          return fetchMovieDetails(fav.id);
-        } else {
-          return fetchTvDetails(fav.id);
+        try {
+          const data =
+            fav.media_type === "movie"
+              ? await fetchMovieDetails(fav.id)
+              : await fetchTvDetails(fav.id);
+
+          if (!data) return null;
+
+          // Reanexa o media_type original do favorito
+          return {
+            ...data,
+            media_type: fav.media_type,
+          } as FavoriteItem;
+        } catch (e) {
+          console.error("Erro ao carregar detalhe:", fav, e);
+          return null;
         }
       });
+
       const allDetails = await Promise.all(detailsPromises);
-      const validDetails = allDetails.filter(Boolean);
-      setFavoriteDetails(validDetails as FavoriteItem[]);
+      const validDetails = allDetails.filter(Boolean) as FavoriteItem[];
+      setFavoriteDetails(validDetails);
       setLoading(false);
     };
 
@@ -130,7 +152,9 @@ export default function Favoritos() {
         </button>
       </div>
 
-      <p className="text-neutral-300 mt-2">Sua lista de filmes e séries favoritos.</p>
+      <p className="text-neutral-300 mt-2">
+        Sua lista de filmes e séries favoritos.
+      </p>
 
       {loading ? (
         <p className="text-center mt-8 text-neutral-400">Carregando...</p>

@@ -5,7 +5,7 @@ import { fetchMovieDetails, fetchTvDetails } from "../../api/tmdbApi";
 const IMG_BASE = "https://image.tmdb.org/t/p/w500";
 const BACKDROP_BASE = "https://image.tmdb.org/t/p/w1280";
 
-type MediaType = "movie" | "tv";
+type MediaType = "movie" | "tv" |"person";
 
 type CommonDetails = {
   id: number;
