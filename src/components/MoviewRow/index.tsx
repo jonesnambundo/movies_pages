@@ -82,7 +82,8 @@ function MovieRow({ title, subtitle, fetchUrl, id, limit = 18 }: MovieRowProps) 
         <div className="relative">
           <div ref={trackRef} className="no-scrollbar flex space-x-4 overflow-x-auto pb-2 snap-x snap-mandatory">
             {movies.map((m) => (
-              <MovieCard key={m.id} movie={m} onDetails={handleDetails} />
+              <MovieCard key={m.id} movie={m} onDetails={() => handleDetails(m.id)} />
+
             ))}
           </div>
         </div>
