@@ -4,7 +4,7 @@ Bem-vindo ao **MoviArt**!
 Uma aplicação web feita com **React + TypeScript** para explorar, pesquisar e salvar seus filmes e séries favoritos.  
 Os dados são fornecidos pela **API do The Movie Database (TMDb)** e apresentados em um layout responsivo, moderno e intuitivo.  
 
-🔗 [Acesse o Deploy Aqui](https://movies-pages-jnbw.vercel.app/series)
+🔗 [Acesse o Deploy Aqui](https://movies-pages-jnbw.vercel.app/)
 
 ![Image](https://github.com/user-attachments/assets/ca2c34e1-104d-4c47-a167-8608e45f8067)
 ---
