@@ -25,8 +25,8 @@ function Header() {
     }
     if (isSeriesPage) {
       return [
-        { href: "/", label: "Home" },          // volta ao topo de /series
-        { href: "#tv-trending", label: "Trending" }, // âncoras da página de séries
+        { href: "/", label: "Home" },          
+        { href: "#tv-trending", label: "Trending" }, 
         { href: "#tv-popular", label: "Popular" },
         { href: "#tv-top-rated", label: "Top Rated" },
       ];
@@ -146,7 +146,6 @@ function Header() {
           <div className="mt-4 pb-4 space-y-2 md:hidden">
             {mainLinks.map((item) => {
               const isHashOnly = item.href.startsWith("#");
-              const Comp = isHashOnly ? "a" as const : Link;
               const commonProps = {
                 className: "block text-white hover:text-purple-400 transition-colors py-2",
                 onClick: () => setIsOpen(false),
