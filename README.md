@@ -43,7 +43,6 @@ Os dados são fornecidos pela **API do The Movie Database (TMDb)** e apresentado
 2. **Crie um ambiente de desenvolvimento**:
    ```bash
    cd moviart
-   yarn install
    npm install
    npm run dev 
    ```
