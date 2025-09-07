@@ -1,4 +1,3 @@
-import React from "react";
 import TvRow from "../../components/TvRow";
 import { URLS } from "../../api/tmdbApi";
 
