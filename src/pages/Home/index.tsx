@@ -1,4 +1,3 @@
-import React from "react";
 import SearchBar from "../../components/SearchBar";
 import MovieRow from "../../components/MoviewRow";
 import { URLS } from "../../api/tmdbApi";
