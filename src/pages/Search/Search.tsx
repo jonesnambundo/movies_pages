@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { URLS } from "../../api/tmdbApi";
 import MovieCard from "../../components/MovieCard";
